@@ -12,12 +12,12 @@ Preferably I would have let every ScriptableObject itself handle the adding of e
 
 Since every entity can only render one mesh, a prefab with two gameObjects requires two entities (chained together by components). Doing this chaining process by code requires a better understanding and more time. Conventionally I used the ConvertToUnity Monobehaviour, which is fine and done in the examples, though not the fastest it could be (everything done outside the ECS can be considered a bottleneck).
 
-##Functionality
+## Functionality
 Any logic is added to entities by adding components, therefore by adding or removing components we add or remove functionality. A simple example is the prefab Bench1x1 and Building3x3, both have the ConstructProxy component (Proxy classes convert Monobehaviour components to ECS components), therefore their entities have the ConstructComponent. The ConstructSysJob is executed on every entity with ConstructComponent, in this example it meshed is raised from the ground in a timeframe of 10 seconds, simulating getting build.
 
 Since Building3x3 produce resources, the ProduceProxy component was, resulting it to add every 10 seconds specific amount of resources to the player entity.
 
-##Jobs
+## Jobs
 ECS is fast because of the JobSystem, allowing processing everything on multiple threads. It works great and adding new functionality is done by adding a new job and a new component, further execution of different jobs can be queued (a feature missing with native Update). 
 
 Mostly ECS is simple, until you try to access and manipulate data from an entity not iterated by the job. 
