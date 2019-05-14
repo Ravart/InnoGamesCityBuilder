@@ -1,3 +1,29 @@
+# Architecture
+
+The chosen architecture is a new ECS system created by Unity called Dots, which highly focus performance (which it achieves) and is probably going to be Unitys next big thing. It enforces a highly structured code by separating game data (components) from execution (systems/jobs), though it's still in preview, meaning Unity changes code (quite drastically), few tutorials (most of them outdated) and personally I wish to have achieved more of the goals in this eight hours, since a lot of time was spent figuring out this new ECS system.
+
+My reason to use ECS had a few different reasons, the game itself seemed perfectly suitable for ECS, its performance boost compared to Unitys native component system is no joke (even on mobile devices) and showing that I'm capable to adept new technology I have never used (though completed fewer features than hoped and would have using the vanilla way). 
+
+
+## Data Storage
+I created a ScriptableObject called "BuildingAsset", which allows to instatiate linked prefab (which turns on first update call immediately into an entity). Any game logic is directly placed on the prefabs ( in ECS components declares which kind of jobs have to be executed on entities).
+
+Preferably I would have let every ScriptableObject itself handle the adding of entities with required components, though doing that with prefabs of multiple gameObject is a bigger process.
+
+Since every entity can only render one mesh, a prefab with two gameObjects requires two entities (chained together by components). Doing this chaining process by code requires a better understanding and more time. Conventionally I used the ConvertToUnity Monobehaviour, which is fine and done in the examples, though not the fastest it could be (everything done outside the ECS can be considered a bottleneck).
+
+##Functionality
+Any logic is added to entities by adding components, therefore by adding or removing components we add or remove functionality. A simple example is the prefab Bench1x1 and Building3x3, both have the ConstructProxy component (Proxy classes convert Monobehaviour components to ECS components), therefore their entities have the ConstructComponent. The ConstructSysJob is executed on every entity with ConstructComponent, in this example it meshed is raised from the ground in a timeframe of 10 seconds, simulating getting build.
+
+Since Building3x3 produce resources, the ProduceProxy component was, resulting it to add every 10 seconds specific amount of resources to the player entity.
+
+##Jobs
+ECS is fast because of the JobSystem, allowing processing everything on multiple threads. It works great and adding new functionality is done by adding a new job and a new component, further execution of different jobs can be queued (a feature missing with native Update). 
+
+Mostly ECS is simple, until you try to access and manipulate data from an entity not iterated by the job. 
+Probably possibly, though I haven't figured out the right way to do it yet. In my solution (ProductionSysJob and PayoutSysJob) I collect required data before executing the job, which means this collecting part of code always runs on the mainthread and is "normally slow". Since multi threading is use, it make sense to disallow casual overwriting values in other entities, though it's definitely possible.
+
+
 # Test assessment for Unity candidates
 
 *Test project for applicants:*
