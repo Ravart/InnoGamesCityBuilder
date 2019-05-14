@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07113d94f937b4c4b9a238a460bd5815, type: 3}
+  m_Name: Bench
+  m_EditorClassIdentifier: 
+  displayname: Bench
+  description: A simple bench decoration
+  cost:
+    gold: 150
+    wood: 0
+    steel: 50
+  prefab: {fileID: 5393388301532982471, guid: affe66bd566d942f78badd68c1a973d1, type: 3}
+  icon: {fileID: 2800000, guid: 11e557fd83a7b9f4f9a0234ee39cbd99, type: 3}
